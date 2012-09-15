@@ -6,20 +6,20 @@ module Formtastic
       fields = ActiveSupport::SafeBuffer.new
       ::I18n.available_locales.each do |locale|
         linker << self.template.content_tag(:li,
-                                            self.template.content_tag(:a,
-                                                                      ::I18n.t("translation.#{locale}"),
-                                                                      :href => "#lang-#{locale}-#{index}"
-                                                                     )
-                                           )
+          self.template.content_tag(:a,
+            ::I18n.t("translation.#{locale}"),
+            :href => "#lang-#{locale}-#{index}"
+          )
+        )
         fields << self.template.content_tag(:div,
-                                            self.semantic_fields_for(*(args.dup << self.object.translation_for(locale)), &proc),
-                                            :id => "lang-#{locale}-#{index}"
-                                           )
+          self.semantic_fields_for(*(args.dup << self.object.translation_for(locale)), &proc),
+          :id => "lang-#{locale}-#{index}"
+        )
       end
 
       linker = self.template.content_tag(:ul, linker, :class => "language-selection")
-
-      self.template.content_tag(:div, linker + fields, :class => "language-tabs-#{index}") + self.template.content_tag(:script, "$('.language-tabs-#{index}').tabs();", :type => "text/javascript")
+      html = self.template.content_tag(:div, linker + fields, :class => "language-tabs-#{index}")
+      html << self.template.javascript_tag("$('.language-tabs-#{index}').tabs();")
     end
   end
 end
