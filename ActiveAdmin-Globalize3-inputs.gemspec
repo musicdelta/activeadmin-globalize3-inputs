@@ -14,7 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "activeadmin-globalize3-inputs"
   gem.require_paths = ["lib"]
   gem.version       = GlobalizeAAInputs::VERSION
-
   gem.add_dependency "globalize3"
   gem.add_dependency "activeadmin"
 end
